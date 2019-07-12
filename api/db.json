@@ -1,0 +1,16 @@
+{
+  "favorites": [
+    {
+      "id": 1,
+      "title": "O Brother, Where Art Thou?"
+    },
+    {
+      "id": 2,
+      "title": "The Fall"
+    },
+    {
+      "id": 3,
+      "title": "Best in Show"
+    }
+  ]
+}
