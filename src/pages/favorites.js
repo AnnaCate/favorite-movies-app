@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Link} from '@reach/router';
-import {map} from 'ramda';
+import FavoriteMovies from '../components/FavoriteMovies';
 
 const Favorites = props => {
   const [movies, setMovies] = useState([]);
@@ -16,7 +16,6 @@ const Favorites = props => {
       <section className='hero is-primary'>
         <div className='hero-body'>
           <h1 className='title'>Your Favorite Movies</h1>
-          {/* <Link to='/favorites/new'> */}
           <Link to='/favorites/add'>
             <button className='button'>Add New</button>
           </Link>
@@ -24,25 +23,10 @@ const Favorites = props => {
       </section>
       <section className='section'>
         <div>
-          <ul>{map(li, movies)}</ul>
+          <FavoriteMovies movies={movies} />
         </div>
       </section>
     </div>
-  );
-};
-
-const li = movie => {
-  return (
-    <Link to={`/favorites/${movie.id}`}>
-      <li key={movie.id} className='column is-one-quarter'>
-        <div className='card'>
-          <div className='card-header'>
-            <h2 className='card-header-title'>{movie.title}</h2>
-          </div>
-          <div className='fill' />
-        </div>
-      </li>
-    </Link>
   );
 };
 

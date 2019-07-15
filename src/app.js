@@ -5,16 +5,14 @@ import {Router} from '@reach/router';
 import Start from './pages/start';
 import Favorites from './pages/favorites';
 import Show from './pages/show';
-import Add from './pages/add';
-import SearchAndAdd from './pages/SearchAndAdd';
+import AddMovie from './pages/AddMovie';
 
-const App = props => {
+const App = () => {
   return (
     <Router>
       <Start path='/' />
       <Show path='/favorites/:id' />
-      {/* <Add path='/favorites/new' /> */}
-      <SearchAndAdd path='/favorites/add' />
+      <AddMovie path='/favorites/add' />
       <Favorites path='/favorites' />
     </Router>
   );

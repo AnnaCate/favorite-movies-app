@@ -24,15 +24,18 @@ const Show = props => {
       <section className='hero is-primary'>
         <div className='hero-body'>
           <h1 className='title'>{movie.title}</h1>
-          {/* <Link to={`/favorites/${movie.id}/edit`}>
-            <button className='button'>Edit</button>
-          </Link> */}
-          <button className='button' onClick={handleDelete}>
-            Delete
-          </button>
-          <Link to='/favorites'>
-            <button className='button'>Go Back</button>
-          </Link>
+          <div className='field is-grouped'>
+            <div className='control'>
+              <button className='button' onClick={handleDelete}>
+                Delete
+              </button>
+            </div>
+            <div className='control'>
+              <Link to='/favorites'>
+                <button className='button'>Go Back</button>
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
       <section className='section'>

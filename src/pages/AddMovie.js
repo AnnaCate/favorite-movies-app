@@ -1,11 +1,14 @@
 import React, {useState} from 'react';
 import {Link, navigate} from '@reach/router';
+import SearchInput from '../components/SearchInput';
 
-const Add = props => {
-  const [movie, setMovie] = useState({id: null, title: ''});
+const AddMovie = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [newMovie, setNewMovie] = useState({id: null, title: ''});
 
-  const handleChange = e => {
-    setMovie({...movie, title: e.target.value});
+  const handleSearchTermChange = e => {
+    setSearchTerm(e.target.value);
+    setNewMovie({...newMovie, title: e.target.value});
   };
 
   const handleAddNew = e => {
@@ -16,10 +19,10 @@ const Add = props => {
       headers: {
         'content-type': 'application/json',
       },
-      body: JSON.stringify(movie),
+      body: JSON.stringify(newMovie),
     })
       .then(response => response.json())
-      .then(res => navigate('/favorites'))
+      .then(navigate('/favorites'))
       .catch(err => console.log(err));
   };
 
@@ -31,28 +34,20 @@ const Add = props => {
         </div>
       </section>
 
-      <section className='section columns'>
-        <form className='form column is-one-third'>
+      <section className='section'>
+        <form className='form' autoComplete='off'>
           <div className='field'>
-            <label className='label'>Movie Title:</label>
-            <div className='control'>
-              <input
-                type='text'
-                className='input'
-                placeholder='Enter a Movie Title'
-                value={movie.title}
-                onChange={handleChange}
-              />
-            </div>
+            <SearchInput
+              searchTerm={searchTerm}
+              handleSearchTermChange={handleSearchTermChange}
+            />
           </div>
 
           <div className='field is-grouped'>
             <div className='control'>
-              <Link to='/favorites'>
-                <button className='button' onClick={handleAddNew}>
-                  Add
-                </button>
-              </Link>
+              <button className='button' onClick={handleAddNew}>
+                Add
+              </button>
             </div>
             <div className='control'>
               <Link to='/favorites'>
@@ -66,4 +61,4 @@ const Add = props => {
   );
 };
 
-export default Add;
+export default AddMovie;
