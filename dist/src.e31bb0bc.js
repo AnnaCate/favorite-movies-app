@@ -46080,7 +46080,7 @@ var Show = function Show(props) {
     className: "button"
   }, "Go Back")))), _react.default.createElement("section", {
     className: "section"
-  }, _react.default.createElement("div", null, "Insert movie poster and other details here")));
+  }, _react.default.createElement("div", null, _react.default.createElement("p", null, "Year Released: [insert movie year here]"))));
 };
 
 var _default = Show;
@@ -48259,16 +48259,62 @@ function useMovieSearch(searchTerm) {
 }
 
 var ServerMovieSearch = function ServerMovieSearch() {
+  var textInput = _react.default.createRef();
+
   var _useState3 = (0, _react.useState)(''),
       _useState4 = _slicedToArray(_useState3, 2),
       searchTerm = _useState4[0],
       setSearchTerm = _useState4[1];
+
+  var _useState5 = (0, _react.useState)({
+    id: null,
+    title: ''
+  }),
+      _useState6 = _slicedToArray(_useState5, 2),
+      newMovie = _useState6[0],
+      setNewMovie = _useState6[1]; // function handleSelection() {
+  //   console.log(textInput.current);
+  //   let newMovieTitle = textInput.current.value
+  //     .split('(')
+  //     .pop()
+  //     .trim();
+  //   console.log(newMovieTitle);
+  // }
+
 
   var handleSearchTermChange = function handleSearchTermChange(e) {
     setSearchTerm(e.target.value);
   };
 
   var movies = useMovieSearch(searchTerm);
+
+  var handleAddNew = function handleAddNew(e) {
+    e.preventDefault();
+
+    if (searchTerm) {
+      setNewMovie({
+        id: null,
+        title: searchTerm
+      });
+    }
+
+    if (newMovie.title) {
+      fetch('http://localhost:3000/favorites', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify(newMovie)
+      }).then(function (response) {
+        return response.json();
+      }).then(function (res) {
+        return (0, _router.navigate)('/favorites');
+      }).catch(function (err) {
+        return console.log(err);
+      });
+    }
+  };
+
   return _react.default.createElement("div", null, _react.default.createElement("section", {
     className: "hero is-primary"
   }, _react.default.createElement("div", {
@@ -48279,7 +48325,7 @@ var ServerMovieSearch = function ServerMovieSearch() {
     className: "section"
   }, _react.default.createElement("form", {
     className: "form",
-    autocomplete: "off"
+    autoComplete: "off"
   }, _react.default.createElement("div", {
     className: "field"
   }, _react.default.createElement("label", {
@@ -48287,16 +48333,19 @@ var ServerMovieSearch = function ServerMovieSearch() {
   }, "Movie Title:"), _react.default.createElement("div", {
     className: "control"
   }, _react.default.createElement(_combobox.Combobox, null, _react.default.createElement(_combobox.ComboboxInput, {
+    selectOnClick: true,
     className: "input",
     onChange: handleSearchTermChange,
     style: {
       width: 500,
       margin: 0
-    } // aria-label='Movies'
-
+    },
+    ref: textInput,
+    placeholder: "Enter a Movie Title"
   }), movies !== undefined && movies.length > 0 && _react.default.createElement(_combobox.ComboboxPopover, {
     className: "shadow-popup"
-  }, _react.default.createElement(_combobox.ComboboxList, {
+  }, _react.default.createElement(_combobox.ComboboxList // onClick={handleSelection}
+  , {
     style: {
       backgroundColor: '#fff',
       border: '1px solid rgb(219, 219, 219)',
@@ -48319,7 +48368,8 @@ var ServerMovieSearch = function ServerMovieSearch() {
   }, _react.default.createElement(_router.Link, {
     to: "/favorites"
   }, _react.default.createElement("button", {
-    className: "button"
+    className: "button",
+    onClick: handleAddNew
   }, "Add"))), _react.default.createElement("div", {
     className: "control"
   }, _react.default.createElement(_router.Link, {
@@ -48412,7 +48462,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64459" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52996" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

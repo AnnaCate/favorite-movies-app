@@ -36,7 +36,9 @@ const Show = props => {
         </div>
       </section>
       <section className='section'>
-        <div>Insert movie poster and other details here</div>
+        <div>
+          <p>Year Released: [insert movie year here]</p>
+        </div>
       </section>
     </div>
   );
